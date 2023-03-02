@@ -1,6 +1,12 @@
+const { db } = require("../db");
 //Register
 const register = async (req, res) => {
 	// register code here
+
+	db.query("select * from users", function (err, result) {
+		if (err) console.log(err);
+		console.log(result);
+	});
 };
 
 //login
