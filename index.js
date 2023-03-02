@@ -3,27 +3,13 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const mysql = require("mysql");
 const authRoute = require("./routes/authRoute");
-const jwt =require("jsonwebtoken")
+const { db } = require("./db");
 
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-//sql connection
-const db = mysql.createConnection({
-	host: "sql12.freesqldatabase.com",
-	user: "sql12602314",
-	password: "w5UKWc1Zpt",
-	database: "sql12602314",
-	port: 3306,
-});
-db.connect(function (err) {
-	if (err) throw err;
-	console.log("Connected to database :)");
-});
 
 //middleware
 app.use(express.json());
