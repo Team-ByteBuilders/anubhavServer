@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql");
 const authRoute = require("./routes/authRoute");
+const jwt =require("jsonwebtoken")
 
 require("dotenv").config();
 
