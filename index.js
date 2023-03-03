@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
+const hospitalRoute = require("./routes/hospitalRoute");
 const { db } = require("./db");
 
 require("dotenv").config();
@@ -22,9 +23,10 @@ app.use(cors("http://localhost:3000"));
 
 // routes
 app.use("/auth", authRoute);
-app.use("/user",userRoute);
+app.use("/user", userRoute);
+app.use("/hospital", hospitalRoute);
 
 app.listen(PORT, () => {
-	console.log(`server listening on ${PORT} 🎉🎉`);
-	console.log("connecting to db...");
+  console.log(`server listening on ${PORT} 🎉🎉`);
+  console.log("connecting to db...");
 });
