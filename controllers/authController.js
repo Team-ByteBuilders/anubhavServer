@@ -7,15 +7,14 @@ const register = async (req, res) => {
 	const username = req.body.username;
 	const password = req.body.password;
 	const email = req.body.email;
-	const dob = req.body.dob;
 	const salt = await bcrypt.genSalt(10);
 	bcrypt.hash(password, salt, (err, hash) => {
 		if (err) {
 			console.log(err);
 		}
 		db.query(
-			`INSERT INTO users (email, name,password,dob) VALUES (?,?,?,?)`,
-			[email, username, hash, dob],
+			`INSERT INTO users (email, name,password) VALUES (?,?,?)`,
+			[email, username, hash],
 			function (err, result) {
 				if (err) {
 					res.status(400).send(err);
@@ -54,8 +53,8 @@ const login = async (req, res) => {
 
 const userDetails = async (req, res) => {
 	const altPhnNo = req.body.altPhnNo;
+	
 	const modeOfContact = req.body.modeOfContact;
-
 	console.log(altPhnNo, modeOfContact);
 	res = await db
 		.request()
@@ -68,7 +67,13 @@ const userDetails = async (req, res) => {
 			}
 		);
 	res.send("success");
-};
+
+	}
+	 
+	
+    
+	
+
 
 const resetPassword = async (req, res) => {
 	// reset pass
