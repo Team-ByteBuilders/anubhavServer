@@ -1,6 +1,8 @@
+const { db } = require("../db");
+
 //Register
 const register = async (req, res) => {
-	const username = req.body.username;
+  const username = req.body.username;
     const password = req.body.password;
     const dob = req.body.dob;
     console.log(username,password)
@@ -11,7 +13,12 @@ const register = async (req, res) => {
         res = await db.request().query(`INSERT INTO users (id,name,password,dob) VALUES (154,${username},${password},${dob})`)
         res.send(res);
 
-    })   
+    })  
+    
+	db.query("select * from users", function (err, result) {
+		if (err) console.log(err);
+		console.log(result);
+	});
 };
 const verifyJWT = ( req,res,next) =>{
     const token=req.headers("x-accesss-token")
