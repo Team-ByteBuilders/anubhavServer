@@ -77,7 +77,7 @@ const userDetails = async (req, res) => {
 		console.log(err);
 
 	}
-	
+	 
 	)
     
 };
