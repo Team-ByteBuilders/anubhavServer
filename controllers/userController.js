@@ -92,8 +92,33 @@ const getUser = async (req, res) => {
 
 }
 
+const getUserDetail = async (req, res) => {
+  var start = new Date();
+  console.log(start.toString())
+  db.query(
+    `UPDATE users SET lastActive=? WHERE email=?`,
+    [start, req.email.email],
+    (err, result) => {
+      if (result)
+        db.query(
+          `SELECT * from users WHERE email=?`,
+          [req.email.email],
+          (error, result1) => {
+            if (result1)
+              res.status(200).send(result1)
+            else
+              res.status(401).send(error)
+          }
+        )
+      else
+        res.status(401).send(err)
+    }
+  )
+}
+
 module.exports = {
   userDetails,
   personalDetails,
-  getUser
+  getUser,
+  getUserDetail
 };
