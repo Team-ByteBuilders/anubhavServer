@@ -19,13 +19,16 @@ const register = async (req, res) => {
 				[email, username, hash],
 				function (err, result) {
 					if (err) {
-						res.status(500).send(err);
+						res.status(400).send({
+							message: "Already registered !!",
+						});
+						return;
+					} else {
+						res.status(200).send({
+							message: "registered successfully:)",
+						});
 						return;
 					}
-					res.status(201).send({
-						message: "registered successfully:)",
-					});
-					return;
 				}
 			);
 		});
