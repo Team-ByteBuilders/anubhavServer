@@ -30,7 +30,7 @@ const getHopitals = async (req, res) => {
 				}
 				for (let i = 0; i < result.length; i++) {
 					if (
-						getDistanceFromLatLonInKm(result[i].lat, result[i].lon, lat, lon) >
+						getDistanceFromLatLonInKm(result[i].lat, result[i].lon, lat, lon) <=
 						6
 					) {
 						arr.push(result[i]);
