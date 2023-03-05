@@ -6,6 +6,7 @@ const getHopitals = async (req, res) => {
 		const lon = req.body.lon;
 		if (!lat || !lon) {
 			res.status(400).send({ message: "no lat lon recieved" });
+			return;
 		}
 		db.query(`select * from hospital`, (err, result) => {
 			let arr = [];
@@ -36,12 +37,15 @@ const getHopitals = async (req, res) => {
 					}
 				}
 				res.status(200).send(arr);
+				return;
 			} else {
 				res.status(500).send(err);
+				return;
 			}
 		});
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 module.exports = { getHopitals };

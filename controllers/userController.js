@@ -12,13 +12,16 @@ const userDetails = async (req, res) => {
 			(err, result) => {
 				if (result) {
 					res.status(200).send({ message: "success" });
+					return;
 				} else {
 					res.status(500).send(err);
+					return;
 				}
 			}
 		);
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 const personalDetails = async (req, res) => {
@@ -34,13 +37,16 @@ const personalDetails = async (req, res) => {
 			(err, result) => {
 				if (result) {
 					res.status(200).send({ message: "success" });
+					return;
 				} else {
-					resstatus(500).send(err);
+					res.status(500).send(err);
+					return;
 				}
 			}
 		);
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 
@@ -90,18 +96,22 @@ const getUser = async (req, res) => {
 									}
 								}
 								res.status(200).send(nearsetUser);
+								return;
 							} else {
 								res.status(500).send(err);
+								return;
 							}
 						}
 					);
 				} else {
 					res.status(500).send(err);
+					return;
 				}
 			}
 		);
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 

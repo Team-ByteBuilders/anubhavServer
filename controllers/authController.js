@@ -12,6 +12,7 @@ const register = async (req, res) => {
 		bcrypt.hash(password, salt, (err, hash) => {
 			if (err) {
 				res.status(500).send(err);
+				return;
 			}
 			db.query(
 				`INSERT INTO users (email, name,password) VALUES (?,?,?)`,
@@ -19,15 +20,18 @@ const register = async (req, res) => {
 				function (err, result) {
 					if (err) {
 						res.status(500).send(err);
+						return;
 					}
 					res.status(201).send({
 						message: "registered successfully:)",
 					});
+					return;
 				}
 			);
 		});
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 
@@ -36,6 +40,10 @@ const login = async (req, res) => {
 	try {
 		const email = req.body.email;
 		const password = req.body.password;
+		if (!email || !password) {
+			res.status(400).send({ messaage: "password or email not recieved!" });
+			return;
+		}
 
 		db.query(`SELECT * FROM users where email= ? `, email, (err, result) => {
 			if (result.length > 0) {
@@ -44,20 +52,25 @@ const login = async (req, res) => {
 						res
 							.status(401)
 							.send({ message: "wrong combination of username and password" });
+						return;
 					} else {
 						const email = result[0].email;
 						const token = jwt.sign({ email }, "jwtsectret");
 						res.status(200).json({ token: token });
+						return;
 					}
 				});
 			} else if (result == 0) {
 				res.status(404).send({ message: "user does not exist!!" });
+				return;
 			} else if (err) {
 				res.status(500).send(err);
+				return;
 			}
 		});
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 
