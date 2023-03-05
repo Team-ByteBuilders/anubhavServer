@@ -30,3 +30,5 @@ app.listen(PORT, () => {
   console.log(`server listening on ${PORT} 🎉🎉`);
   console.log("connecting to db...");
 });
+
+
