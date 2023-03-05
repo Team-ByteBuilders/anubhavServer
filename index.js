@@ -31,6 +31,7 @@ app.listen(PORT, () => {
   console.log("connecting to db...");
 });
 
+
 const checktime=()=>{
 	var hours=new Date().getHours();
 	var min=new Date().getMinutes();
@@ -44,6 +45,5 @@ const checktime=()=>{
 setInterval(() => {
   checktime();
 }, 1000);
-
 
 
