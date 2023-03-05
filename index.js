@@ -30,3 +30,20 @@ app.listen(PORT, () => {
   console.log(`server listening on ${PORT} 🎉🎉`);
   console.log("connecting to db...");
 });
+
+const checktime=()=>{
+	var hours=new Date().getHours();
+	var min=new Date().getMinutes();
+	var sec=new Date().getSeconds();
+  if(hours==12&&min==0&&sec==0)
+  {
+    console.log("code")
+  }
+}
+
+setInterval(() => {
+  checktime();
+}, 1000);
+
+
+
