@@ -12,13 +12,16 @@ const userDetails = async (req, res) => {
 			(err, result) => {
 				if (result) {
 					res.status(200).send({ message: "success" });
+					return;
 				} else {
 					res.status(500).send(err);
+					return;
 				}
 			}
 		);
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 const personalDetails = async (req, res) => {
@@ -34,13 +37,16 @@ const personalDetails = async (req, res) => {
 			(err, result) => {
 				if (result) {
 					res.status(200).send({ message: "success" });
+					return;
 				} else {
-					resstatus(500).send(err);
+					res.status(500).send(err);
+					return;
 				}
 			}
 		);
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 
@@ -90,23 +96,52 @@ const getUser = async (req, res) => {
 									}
 								}
 								res.status(200).send(nearsetUser);
+								return;
 							} else {
 								res.status(500).send(err);
+								return;
 							}
 						}
 					);
 				} else {
 					res.status(500).send(err);
+					return;
 				}
 			}
 		);
 	} catch (err) {
 		res.status(500).send(err);
+		return;
 	}
 };
 
+const getUserDetail = async (req, res) => {
+  var start = new Date();
+  console.log(start.toString())
+  db.query(
+    `UPDATE users SET lastActive=? WHERE email=?`,
+    [start, req.email.email],
+    (err, result) => {
+      if (result)
+        db.query(
+          `SELECT * from users WHERE email=?`,
+          [req.email.email],
+          (error, result1) => {
+            if (result1)
+              res.status(200).send(result1)
+            else
+              res.status(401).send(error)
+          }
+        )
+      else
+        res.status(401).send(err)
+    }
+  )
+}
+
 module.exports = {
-	userDetails,
-	personalDetails,
-	getUser,
+  userDetails,
+  personalDetails,
+  getUser,
+  getUserDetail
 };
