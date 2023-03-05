@@ -37,6 +37,7 @@ const checktime = () => {
   var min = new Date().getMinutes();
   var sec = new Date().getSeconds();
   if (hours == 12 && min == 0 && sec == 0) {
+    
     require("dotenv").config();
 
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
