@@ -12,8 +12,10 @@ const db = mysql.createConnection({
 const kuxBiKrkeConnect = () => {
 	db.connect(function (err) {
 		if (err) {
-			console.log("error occured but kux bi krke connecting...");
-			kuxBiKrkeConnect();
+			setTimeout(() => {
+				console.log("error occured but kux bi krke connecting...");
+				kuxBiKrkeConnect();
+			}, 1000);
 		} else {
 			console.log("Connected to database :)");
 		}
