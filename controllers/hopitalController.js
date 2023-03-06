@@ -3,8 +3,9 @@ const { mysql_pool } = require("../db");
 const getHopitals = async (req, res) => {
 	mysql_pool.getConnection(function (err, connection) {
 		if (err) {
-			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
+			res.status(500).send({ message: "try again" });
+			return;
 		}
 		try {
 			const lat = req.body.lat;

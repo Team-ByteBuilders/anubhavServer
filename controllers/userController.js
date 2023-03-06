@@ -3,8 +3,9 @@ require("dotenv").config();
 const userDetails = async (req, res) => {
 	mysql_pool.getConnection(function (err, connection) {
 		if (err) {
-			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
+			res.status(500).send({ message: "try again" });
+			return;
 		}
 		try {
 			const altPhnNo = req.body.altPhnNo;
@@ -34,8 +35,9 @@ const userDetails = async (req, res) => {
 const personalDetails = async (req, res) => {
 	mysql_pool.getConnection(function (err, connection) {
 		if (err) {
-			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
+			res.status(500).send({ message: "try again" });
+			return;
 		}
 		try {
 			const dob = req.body.dob;
@@ -67,8 +69,9 @@ const personalDetails = async (req, res) => {
 const getUser = async (req, res) => {
 	mysql_pool.getConnection(function (err, connection) {
 		if (err) {
-			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
+			res.status(500).send({ message: "try again" });
+			return;
 		}
 		try {
 			const nearsetUser = [];
@@ -139,8 +142,9 @@ const getUser = async (req, res) => {
 const getUserDetail = async (req, res) => {
 	mysql_pool.getConnection(function (err, connection) {
 		if (err) {
-			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
+			res.status(500).send({ message: "try again" });
+			return;
 		}
 		var start = new Date();
 		console.log(start.toString());
@@ -166,8 +170,9 @@ const getUserDetail = async (req, res) => {
 const emergencybutton = (req, res) => {
 	mysql_pool.getConnection(function (err, connection) {
 		if (err) {
-			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
+			res.status(500).send({ message: "try again" });
+			return;
 		}
 		const lat = req.body.lat;
 		const lon = req.body.lon;
