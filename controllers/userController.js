@@ -12,9 +12,11 @@ const userDetails = async (req, res) => {
 			const blood = req.body.bloodgroup;
 			const sugar = req.body.sugar;
 			const heartrate = req.body.heartrate;
+			const pulse = req.body.pulse;
+			const blood_pressure = req.body.blood_pressure;
 			connection.query(
-				`update users set alternatePhone = ?, blood_group = ?,sugar_level= ?,heartrate=?  where email=?`,
-				[altPhnNo, blood, sugar, heartrate, req.email.email],
+				`update users set alternatePhone = ?, blood_group = ?, sugar_level= ?, heartrate=?, pulse=?,blood_pressure=?  where email=?`,
+				[altPhnNo, blood, sugar, heartrate, pulse, blood_pressure, req.email.email],
 				(err, result) => {
 					if (result) {
 						res.status(200).send({ message: "success" });
