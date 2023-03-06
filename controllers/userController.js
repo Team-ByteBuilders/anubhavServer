@@ -154,7 +154,7 @@ const getUserDetail = async (req, res) => {
 			(err, result) => {
 				if (result)
 					connection.query(
-						`SELECT * from users WHERE email=?`,
+						`SELECT name,email,dob,mobile,gender,alternatePhone,lastActive from users WHERE email=?`,
 						[req.email.email],
 						(error, result1) => {
 							if (result1) res.status(200).send(result1);
