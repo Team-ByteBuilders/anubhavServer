@@ -8,7 +8,6 @@ const register = async (req, res) => {
 		if (err) {
 			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
-			throw err;
 		}
 		try {
 			const username = req.body.username;
@@ -52,7 +51,6 @@ const login = async (req, res) => {
 		if (err) {
 			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
-			throw err;
 		}
 		try {
 			const email = req.body.email;

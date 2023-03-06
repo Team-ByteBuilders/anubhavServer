@@ -5,7 +5,6 @@ const getHopitals = async (req, res) => {
 		if (err) {
 			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
-			throw err;
 		}
 		try {
 			const lat = req.body.lat;

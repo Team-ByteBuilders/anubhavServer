@@ -5,7 +5,6 @@ const userDetails = async (req, res) => {
 		if (err) {
 			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
-			throw err;
 		}
 		try {
 			const altPhnNo = req.body.altPhnNo;
@@ -37,7 +36,6 @@ const personalDetails = async (req, res) => {
 		if (err) {
 			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
-			throw err;
 		}
 		try {
 			const dob = req.body.dob;
@@ -71,7 +69,6 @@ const getUser = async (req, res) => {
 		if (err) {
 			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
-			throw err;
 		}
 		try {
 			const nearsetUser = [];
@@ -144,7 +141,6 @@ const getUserDetail = async (req, res) => {
 		if (err) {
 			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
-			throw err;
 		}
 		var start = new Date();
 		console.log(start.toString());
@@ -172,7 +168,6 @@ const emergencybutton = (req, res) => {
 		if (err) {
 			connection.release();
 			console.log(" Error getting mysql_pool connection: " + err);
-			throw err;
 		}
 		const lat = req.body.lat;
 		const lon = req.body.lon;
