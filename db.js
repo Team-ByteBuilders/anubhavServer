@@ -8,10 +8,19 @@ const db = mysql.createConnection({
 	database: "sql12602314",
 	port: 3306,
 });
-db.connect(function (err) {
-	if (err) throw err;
-	console.log("Connected to database :)");
-});
+
+const kuxBiKrkeConnect = () => {
+	db.connect(function (err) {
+		if (err) {
+			console.log("error occured but kux bi krke connecting...");
+			kuxBiKrkeConnect();
+		} else {
+			console.log("Connected to database :)");
+		}
+	});
+};
+
+kuxBiKrkeConnect();
 
 const query = async (sql) => {
 	db.query(sql, function (err, result) {
