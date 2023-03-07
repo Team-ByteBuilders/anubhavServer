@@ -179,6 +179,7 @@ const getUserDetail = async (req, res) => {
 };
 
 const addDailyDetail = async (req, res) => {
+
 //   mysql_pool.getConnection(function (err, connection) {
 //     if (err) {
 //       console.log(" Error getting mysql_pool connection: " + err);
