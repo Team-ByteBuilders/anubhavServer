@@ -88,32 +88,59 @@ const checktime = () => {
 	});
 };
 
-const addDailyDate=()=>{
-	mysql_pool.getConnection(function (err, connection) {
-		if (err) {
-			console.log(" Error getting mysql_pool connection: " + err);
-			res.status(500).send({ message: "try again" });
-			return;
-		}
-		const value = date.format((new Date()),
-			'YYYY_MM_DD');
-		var queryy = `ALTER TABLE bp ADD COLUMN ${value} VARCHAR(255)`
-		connection.query(queryy, (err, result) => {
-			if (result) {
-				res.send({ message: "result" })
-			}
-			else {
-				console.log(err);
-			}
-		});
-		connection.release();
-	});
-}
+// const addDailyDate=()=>{
+// 	mysql_pool.getConnection(function (err, connection) {
+// 		if (err) {
+// 			console.log(" Error getting mysql_pool connection: " + err);
+// 			res.status(500).send({ message: "try again" });
+// 			return;
+// 		}
+// 		const value = date.format((new Date()),
+// 			'YYYY_MM_DD');
+// 		var queryy1 = `ALTER TABLE bp ADD COLUMN ${value} VARCHAR(255)`
+// 		var queryy2 = `ALTER TABLE heartrate ADD COLUMN ${value} VARCHAR(255)`
+// 		var queryy3 = `ALTER TABLE pulse ADD COLUMN ${value} VARCHAR(255)`
+// 		var queryy4 = `ALTER TABLE sugar ADD COLUMN ${value} VARCHAR(255)`
+// 		connection.query(queryy1, (err, result) => {
+// 			if (result) {
+// 				res.send({ message: "result" })
+// 			}
+// 			else {
+// 				console.log(err);
+// 			}
+// 		});
+// 		connection.query(queryy2, (err, result) => {
+// 			if (result) {
+// 				res.send({ message: "result" })
+// 			}
+// 			else {
+// 				console.log(err);
+// 			}
+// 		});
+// 		connection.query(queryy3, (err, result) => {
+// 			if (result) {
+// 				res.send({ message: "result" })
+// 			}
+// 			else {
+// 				console.log(err);
+// 			}
+// 		});
+// 		connection.query(queryy4, (err, result) => {
+// 			if (result) {
+// 				res.send({ message: "result" })
+// 			}
+// 			else {
+// 				console.log(err);
+// 			}
+// 		});
+// 		connection.release();
+// 	});
+// }
 
 setInterval(() => {
 	checktime();
 }, 1000);
 
-setInterval(() => {
-	addDailyDate();
-}, 86400000);
+// setInterval(() => {
+// 	addDailyDate();
+// }, 86400000);
