@@ -36,28 +36,41 @@ const checktime = () => {
   mysql_pool.getConnection(function (err, connection) {
     if (err) {
       console.log(" Error getting mysql_pool connection: " + err);
-      res.status(500).send({ message: "try again" });
-      return;
+      
     }
     try {
-      if (hours == 23 && min == 19 && sec == 0) {
+      if (hours == 23 && min == 3 && sec == 0) {
         connection.query(
-          `SELECT name,mobile,lastActive FROM users`,
+          `SELECT name,mobile,lastActive,alternatePhone FROM users`,
           (err, result) => {
             console.log("hell");
             console.log(result);
             if (result) {
-              console.log(result)
-
-        
+            console.log(result)
             for(let i=0;i<result.length;i++){
 				
 				const asdf = result[i].lastActive;
 				if(asdf!=null){
 					
 					const a=asdf.slice(11,13);
-		            
-					console.log(a);
+		            const b=parseInt(a);
+					console.log(b);
+			if (lastActive < b) {
+            require("dotenv").config();
+            const accountSid = process.env.TWILIO_ACCOUNT_SID;
+            const authToken = process.env.TWILIO_AUTH_TOKEN;
+            const client = require("twilio")(accountSid, authToken);
+
+            client.calls
+              .create({
+                to: result[i].alternatePhone,
+                from: "+12706752706",
+                url: "https://handler.twilio.com/twiml/EH54ca708211f610b3797fe0a6ae234fa7",
+              })
+              .then((call) => console.log(call.sid));
+
+            console.log("code");
+          }
 				}
 			}
               
