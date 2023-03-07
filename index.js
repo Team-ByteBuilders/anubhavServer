@@ -1,6 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const { mysql_pool } = require("./db");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const authRoute = require("./routes/authRoute");
@@ -25,32 +26,54 @@ app.use("/user", userRoute);
 app.use("/hospital", hospitalRoute);
 
 app.listen(PORT, () => {
-	console.log(`server listening on ${PORT} 🎉🎉`);
+  console.log(`server listening on ${PORT} 🎉🎉`);
 });
 
 const checktime = () => {
-	var hours = new Date().getHours();
-	var min = new Date().getMinutes();
-	var sec = new Date().getSeconds();
-	if (hours == 12 && min == 0 && sec == 0) {
-		require("dotenv").config();
+  var hours = new Date().getHours();
+  var min = new Date().getMinutes();
+  var sec = new Date().getSeconds();
+  mysql_pool.getConnection(function (err, connection) {
+    if (err) {
+      console.log(" Error getting mysql_pool connection: " + err);
+      res.status(500).send({ message: "try again" });
+      return;
+    }
+    try {
+      if (hours == 23 && min == 19 && sec == 0) {
+        connection.query(
+          `SELECT name,mobile,lastActive FROM users`,
+          (err, result) => {
+            console.log("hell");
+            console.log(result);
+            if (result) {
+              console.log(result)
 
-		const accountSid = process.env.TWILIO_ACCOUNT_SID;
-		const authToken = process.env.TWILIO_AUTH_TOKEN;
-		const client = require("twilio")(accountSid, authToken);
-
-		client.calls
-			.create({
-				to: "+918770800031",
-				from: "+12706752706",
-				url: "https://handler.twilio.com/twiml/EH54ca708211f610b3797fe0a6ae234fa7",
-			})
-			.then((call) => console.log(call.sid));
-
-		console.log("code");
-	}
+        
+            for(let i=0;i<result.length;i++){
+				
+				const asdf = result[i].lastActive;
+				if(asdf!=null){
+					
+					const a=asdf.slice(11,13);
+		            
+					console.log(a);
+				}
+			}
+              
+            } else {
+              console.log(err);
+            }
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    connection.release();
+  });
 };
 
 setInterval(() => {
-	checktime();
+  checktime();
 }, 1000);
