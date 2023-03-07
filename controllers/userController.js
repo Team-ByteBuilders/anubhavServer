@@ -178,7 +178,7 @@ const getUserDetail = async (req, res) => {
   });
 };
 
-// const addDailyDetail = async (req, res) => {
+const addDailyDetail = async (req, res) => {
 //   mysql_pool.getConnection(function (err, connection) {
 //     if (err) {
 //       console.log(" Error getting mysql_pool connection: " + err);
@@ -187,13 +187,19 @@ const getUserDetail = async (req, res) => {
 //     }
 //     var start = new Date().toLocaleDateString();
 //     console.log(start);
-//     connection.query(`ALTER TABLE bp ADD COLUMN ?`, [start], (err, result) => {
+//     connection.query(`ALTER TABLE bp ADD COLUMN ${start} varchar(255)`, (err, result) => {
 //       if (result) {
+// 		res.send(result)
 //       }
+// 	  else
+// 	  {
+// 		console.log(err);
+// 	  }
 //     });
 //     connection.release();
 //   });
-// };
+res.send({message:"hello"})
+};
 
 const emergencybutton = (req, res) => {
   mysql_pool.getConnection(function (err, connection) {
