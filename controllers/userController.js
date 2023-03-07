@@ -1,6 +1,6 @@
 const { mysql_pool } = require("../db");
 require("dotenv").config();
-const date = require('date-and-time')
+// const date = require('date-and-time')
 const userDetails = async (req, res) => {
 	mysql_pool.getConnection(function (err, connection) {
 		if (err) {
@@ -180,28 +180,28 @@ const getUserDetail = async (req, res) => {
 };
 
 const addDailyDetail = async (req, res) => {
-	mysql_pool.getConnection(function (err, connection) {
-		if (err) {
-			console.log(" Error getting mysql_pool connection: " + err);
-			res.status(500).send({ message: "try again" });
-			return;
-		}
-		// var start = new Date();
-		// Date.parse(start).toString("dd-MM-yyyy")
-		const value = date.format((new Date()),
-			'YYYY_MM_DD');
-		// console.log(start);
-		var queryy = `ALTER TABLE bp ADD COLUMN ${value} VARCHAR(255)`
-		connection.query(queryy, (err, result) => {
-			if (result) {
-				res.send({ message: "result" })
-			}
-			else {
-				console.log(err);
-			}
-		});
-		connection.release();
-	});
+	// mysql_pool.getConnection(function (err, connection) {
+	// 	if (err) {
+	// 		console.log(" Error getting mysql_pool connection: " + err);
+	// 		res.status(500).send({ message: "try again" });
+	// 		return;
+	// 	}
+	// 	// var start = new Date();
+	// 	// Date.parse(start).toString("dd-MM-yyyy")
+	// 	const value = date.format((new Date()),
+	// 		'YYYY_MM_DD');
+	// 	// console.log(start);
+	// 	var queryy = `ALTER TABLE bp ADD COLUMN ${value} VARCHAR(255)`
+	// 	connection.query(queryy, (err, result) => {
+	// 		if (result) {
+	// 			res.send({ message: "result" })
+	// 		}
+	// 		else {
+	// 			console.log(err);
+	// 		}
+	// 	});
+	// 	connection.release();
+	// });
 	// res.send({ message: "hello" })
 };
 
