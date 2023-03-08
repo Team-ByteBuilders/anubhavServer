@@ -73,7 +73,7 @@ const checktime = () => {
 
 											console.log("code");
 										}
-										else{
+										else {
 											console.log("error nhi aaya")
 										}
 									}
@@ -98,7 +98,9 @@ const checktime = () => {
 				console.log(" Error getting mysql_pool connection: " + err);
 				return;
 			}
-			const value = date.format((new Date()),
+			var today = new Date();
+			// var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+			const value = date.format((new Date(today.getTime() + (24 * 60 * 60 * 1000))),
 				'YYYY_MM_DD');
 			var queryy1 = `ALTER TABLE bp ADD COLUMN ${value} VARCHAR(255)`
 			var queryy2 = `ALTER TABLE heartrate ADD COLUMN ${value} VARCHAR(255)`
