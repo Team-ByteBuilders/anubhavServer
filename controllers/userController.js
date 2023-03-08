@@ -202,7 +202,7 @@ const addDailyDetail = async (req, res) => {
 	// 	});
 	// 	connection.release();
 	// });
-	// res.send({ message: "hello" })
+	res.send({ message: "hello" })
 };
 
 const emergencybutton = (req, res) => {
