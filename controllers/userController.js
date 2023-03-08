@@ -157,7 +157,7 @@ const getUserDetail = async (req, res) => {
 			res.status(500).send({ message: "try again" });
 			return;
 		}
-		var start = new Date();
+		var start = new Date().toISOString();
 		console.log(start.toString());
 		connection.query(
 			`UPDATE users SET lastActive=? WHERE email=?`,
@@ -225,11 +225,14 @@ const emergencybutton = (req, res) => {
 
 					client.calls
 						.create({
-							to: `${result[0].alternatePhone}`,
+							to: `+91${result[0].alternatePhone}`,
 							from: "+12706752706",
-							url: "https://handler.twilio.com/twiml/EH54ca708211f610b3797fe0a6ae234fa7",
+							url: "https://handler.twilio.com/twiml/EH5209e0a1e47fba113d407cb50aa124c8",
 						})
-						.then((call) => console.log(call.sid));
+						.then((call) => {
+							console.log(call.sid)
+
+						});
 
 					if (!lat || !lon) {
 						res.status(400).send({ message: "no lat lon recieved" });
@@ -268,8 +271,18 @@ const emergencybutton = (req, res) => {
 								}
 							}
 							for (var i = 0; i < arr.length; i++) {
-								console.log(arr[i]);
+
+								client.calls
+									.create({
+										to: `+91${arr[i].phone_no}`,
+										from: "+12706752706",
+										url: "https://handler.twilio.com/twiml/EH437ac1a2891f0e0745bead79c358bb1c",
+									})
+									.then((call) => {
+										console.log(call.sid)
+									});
 							}
+							res.status(200).send({message:"calling homies and hospitals..."})
 							return;
 						} else {
 							res.status(500).send(err);

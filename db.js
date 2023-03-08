@@ -27,6 +27,9 @@ const mysql = require("mysql");
 
 var mysql_pool = mysql.createPool({
 	connectionLimit: 100,
+	connectTimeout:60*60*1000,
+	acquireTimeout:60*60*1000,
+	timeout:60*60*1000,
 	host: "sql12.freesqldatabase.com",
 	user: "sql12602314",
 	password: "w5UKWc1Zpt",
