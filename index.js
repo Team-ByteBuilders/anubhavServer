@@ -58,7 +58,7 @@ const checktime = () => {
 										const a = asdf.slice(11, 13);
 										const b = parseInt(a);
 										console.log(b);
-										if (b <= 6) {
+										if (b <= 1) {
 											const accountSid = process.env.TWILIO_ACCOUNT_SID;
 											const authToken = process.env.TWILIO_AUTH_TOKEN;
 											const client = require("twilio")(accountSid, authToken);
@@ -72,6 +72,9 @@ const checktime = () => {
 												.then((call) => console.log(call.sid));
 
 											console.log("code");
+										}
+										else{
+											console.log("error nhi aaya")
 										}
 									}
 								}
