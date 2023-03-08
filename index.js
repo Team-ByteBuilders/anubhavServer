@@ -32,17 +32,18 @@ app.listen(PORT, () => {
 });
 
 const checktime = () => {
-	var hours = new Date().getHours();
-	var min = new Date().getMinutes();
-	var sec = new Date().getSeconds();
-	mysql_pool.getConnection(function (err, connection) {
-		if (err) {
-			console.log(" Error getting mysql_pool connection: " + err);
+	var hours = new Date().getUTCHours();
+	var min = new Date().getUTCMinutes();
+	var sec = new Date().getUTCSeconds();
+	// console.log(hours,min,sec)
 
-		}
-		else {
-			try {
-				if (hours == 14 && min == 45 && sec == 0) {
+	if (hours == 6 && min == 30 && sec == 0) {
+		mysql_pool.getConnection(function (err, connection) {
+			if (err) {
+				console.log(" Error getting mysql_pool connection: " + err);
+			}
+			else {
+				try {
 					connection.query(
 						`SELECT name,mobile,lastActive,alternatePhone FROM users`,
 						(err, result) => {
@@ -57,7 +58,7 @@ const checktime = () => {
 										const a = asdf.slice(11, 13);
 										const b = parseInt(a);
 										console.log(b);
-										if (b <=6 ) {
+										if (b <= 6) {
 											const accountSid = process.env.TWILIO_ACCOUNT_SID;
 											const authToken = process.env.TWILIO_AUTH_TOKEN;
 											const client = require("twilio")(accountSid, authToken);
@@ -79,20 +80,81 @@ const checktime = () => {
 							}
 						}
 					);
+				} catch (error) {
+					console.log(error);
 				}
-			} catch (error) {
-				console.log(error);
 			}
-		}
-		connection.release();
-	});
+			connection.release();
+		});
+	}
+	if (hours == 18 && min == 35 && sec == 0) {
+
+		console.log("chli ya nhi btaooo")
+		mysql_pool.getConnection(async function (err, connection) {
+			if (err) {
+				console.log(" Error getting mysql_pool connection: " + err);
+				return;
+			}
+			const value = date.format((new Date()),
+				'YYYY_MM_DD');
+			var queryy1 = `ALTER TABLE bp ADD COLUMN ${value} VARCHAR(255)`
+			var queryy2 = `ALTER TABLE heartrate ADD COLUMN ${value} VARCHAR(255)`
+			var queryy3 = `ALTER TABLE pulse ADD COLUMN ${value} VARCHAR(255)`
+			var queryy4 = `ALTER TABLE sugar ADD COLUMN ${value} VARCHAR(255)`
+			// var queryy1 = `SELECT NULL FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME="bp" AND COLUMN_NAME=${value}`
+			// connection.query(queryy5,)
+			connection.query(queryy1, (err, result) => {
+				if (result) {
+					console.log(result)
+					// connection.release();
+				}
+				else {
+					// console.log(err);
+					// connection.release();
+				}
+
+			});
+			connection.query(queryy2, (err, result) => {
+				if (result) {
+					console.log(result)
+					// connection.release();
+				}
+				else {
+					// console.log(err);
+					// connection.release();
+				}
+			});
+
+			connection.query(queryy3, (err, result) => {
+				if (result) {
+					console.log(result)
+
+				}
+				else {
+					// console.log(err);
+
+				}
+			});
+			connection.query(queryy4, (err, result) => {
+				if (result) {
+					console.log(result)
+
+				}
+				else {
+					// console.log(err);
+
+				}
+			});
+			connection.release()
+		});
+	}
 };
 
-// const addDailyDate=()=>{
-// 	mysql_pool.getConnection(function (err, connection) {
+// const addDailyDate = () => {
+// 	console.log("chli ya nhi btaooo")
+// 	mysql_pool.getConnection(async function (err, connection) {
 // 		if (err) {
 // 			console.log(" Error getting mysql_pool connection: " + err);
-// 			res.status(500).send({ message: "try again" });
 // 			return;
 // 		}
 // 		const value = date.format((new Date()),
@@ -101,39 +163,52 @@ const checktime = () => {
 // 		var queryy2 = `ALTER TABLE heartrate ADD COLUMN ${value} VARCHAR(255)`
 // 		var queryy3 = `ALTER TABLE pulse ADD COLUMN ${value} VARCHAR(255)`
 // 		var queryy4 = `ALTER TABLE sugar ADD COLUMN ${value} VARCHAR(255)`
+// 		// var queryy1 = `SELECT NULL FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME="bp" AND COLUMN_NAME=${value}`
+// 		// connection.query(queryy5,)
 // 		connection.query(queryy1, (err, result) => {
 // 			if (result) {
-// 				res.send({ message: "result" })
+// 				console.log(result)
+// 				// connection.release();
 // 			}
 // 			else {
-// 				console.log(err);
+// 				// console.log(err);
+// 				// connection.release();
 // 			}
+
 // 		});
 // 		connection.query(queryy2, (err, result) => {
 // 			if (result) {
-// 				res.send({ message: "result" })
+// 				console.log(result)
+// 				// connection.release();
 // 			}
 // 			else {
-// 				console.log(err);
+// 				// console.log(err);
+// 				// connection.release();
 // 			}
 // 		});
+
 // 		connection.query(queryy3, (err, result) => {
 // 			if (result) {
-// 				res.send({ message: "result" })
+// 				console.log(result)
+
 // 			}
 // 			else {
-// 				console.log(err);
+// 				// console.log(err);
+
 // 			}
 // 		});
 // 		connection.query(queryy4, (err, result) => {
 // 			if (result) {
-// 				res.send({ message: "result" })
+// 				console.log(result)
+
 // 			}
 // 			else {
-// 				console.log(err);
+// 				// console.log(err);
+
 // 			}
 // 		});
-// 		connection.release();
+// 		connection.release()
+
 // 	});
 // }
 
@@ -143,4 +218,4 @@ setInterval(() => {
 
 // setInterval(() => {
 // 	addDailyDate();
-// }, 86400000);
+// }, 3000);
